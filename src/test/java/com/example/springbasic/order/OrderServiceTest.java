@@ -1,16 +1,24 @@
 package com.example.springbasic.order;
 
+import com.example.springbasic.AppConfig;
 import com.example.springbasic.member.Grade;
 import com.example.springbasic.member.Member;
 import com.example.springbasic.member.MemberService;
-import com.example.springbasic.member.MemberServiceImpl;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class OrderServiceTest {
 
-    MemberService memberService = new MemberServiceImpl();
-    OrderService orderService = new OrderServiceImpl();
+    private MemberService memberService;
+    private OrderService orderService;
+
+    @BeforeEach
+    public void init(){
+        AppConfig appConfig = new AppConfig();
+        memberService = appConfig.memberService();
+        orderService = appConfig.orderService();
+    }
 
     @Test
     void createOrder() {
@@ -19,7 +27,7 @@ public class OrderServiceTest {
         memberService.join(member);
 
         Order order = orderService.createOrder(memberId, "itemA", 10000);
-        
+
         Assertions.assertThat(order.calculatePrice()).isEqualTo(9000);
     }
 }
