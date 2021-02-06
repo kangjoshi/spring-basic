@@ -1,7 +1,16 @@
 package com.example.springbasic.member;
 
 public enum Grade {
-    BASIC,
-    VIP
+    BASIC("fixedDiscountPolicy"),
+    VIP("rateDiscountPolicy");
 
+    private String discountPolicyName;
+
+    Grade(String discountPolicyName) {
+        this.discountPolicyName = discountPolicyName;
+    }
+
+    public String getDiscountPolicyName() {
+        return discountPolicyName;
+    }
 }
